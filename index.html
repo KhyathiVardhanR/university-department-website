@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Department of Psychology at the University of Florida — faculty, news, and research." />
+  <title>Department of Psychology | University of Florida</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0021A5;
+      --accent: #FA4616;
+      --bg: #f4f6fb;
+      --white: #ffffff;
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #dde3f0;
+      --focus: #ffbf00;
+    }
+
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; font-size: 16px; }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute; top: -44px; left: 0;
+      background: var(--focus); color: #000;
+      padding: 10px 18px; z-index: 9999;
+      text-decoration: none; font-weight: bold;
+      border-bottom-right-radius: 6px;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── HEADER ── */
+    header { background: var(--primary); color: var(--white); }
+    .header-top {
+      max-width: 1100px; margin: 0 auto;
+      padding: 12px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .uf-brand { font-size: 0.85rem; opacity: 0.8; }
+    .header-main {
+      max-width: 1100px; margin: 0 auto;
+      padding: 20px 24px 28px;
+    }
+    .header-main h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.2; }
+    .header-main p { opacity: 0.85; margin-top: 6px; font-size: 1rem; }
+
+    /* ── NAV ── */
+    nav { background: #001580; border-top: 3px solid var(--accent); }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center;
+      padding: 0 24px;
+    }
+    .nav-inner a {
+      color: rgba(255,255,255,0.88);
+      text-decoration: none;
+      padding: 14px 18px;
+      font-size: 0.92rem;
+      display: block;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-inner a:hover,
+    .nav-inner a:focus {
+      color: var(--white);
+      border-bottom-color: var(--accent);
+      outline: 2px solid var(--focus);
+      outline-offset: -2px;
+    }
+    .nav-inner a[aria-current="page"] {
+      color: var(--white);
+      border-bottom-color: var(--accent);
+    }
+
+    /* hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 8px; margin-left: auto;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    /* ── MAIN LAYOUT ── */
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px; display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: start; }
+
+    /* ── CONTENT ── */
+    .content-area h2 { font-size: 1.5rem; color: var(--primary); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+
+    /* hero banner */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--primary), #0035cc);
+      color: var(--white); border-radius: 10px;
+      padding: 40px 36px; margin-bottom: 40px;
+    }
+    .hero-banner h2 { color: var(--white); border-bottom-color: rgba(255,255,255,0.4); font-size: 1.6rem; }
+    .hero-banner p { margin-top: 12px; opacity: 0.9; font-size: 1rem; }
+    .hero-btn {
+      display: inline-block; margin-top: 20px;
+      background: var(--accent); color: var(--white);
+      padding: 12px 28px; border-radius: 6px;
+      text-decoration: none; font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .hero-btn:hover, .hero-btn:focus { opacity: 0.88; outline: 3px solid var(--white); outline-offset: 3px; }
+
+    /* news */
+    .news-section { margin-bottom: 48px; }
+    .news-grid { display: flex; flex-direction: column; gap: 20px; }
+    .news-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 4px solid var(--accent); border-radius: 8px;
+      padding: 20px 24px;
+    }
+    .news-date { font-size: 0.78rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .news-card h3 { font-size: 1rem; color: var(--primary); margin-bottom: 6px; }
+    .news-card p { color: var(--muted); font-size: 0.9rem; }
+    .read-more {
+      display: inline-block; margin-top: 10px;
+      color: var(--primary); font-weight: 600; font-size: 0.88rem;
+      text-decoration: underline;
+    }
+    .read-more:hover, .read-more:focus { color: var(--accent); }
+
+    /* faculty */
+    .faculty-section { margin-bottom: 48px; }
+    .faculty-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .faculty-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 24px 20px; text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .faculty-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.09); transform: translateY(-2px); }
+    .faculty-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--primary); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; font-weight: 700;
+      margin: 0 auto 14px; border: 3px solid var(--accent);
+    }
+    .faculty-card h3 { font-size: 0.98rem; color: var(--primary); margin-bottom: 4px; }
+    .faculty-role { font-size: 0.82rem; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
+    .faculty-area { font-size: 0.82rem; color: var(--muted); }
+    .faculty-email {
+      display: block; margin-top: 10px;
+      font-size: 0.8rem; color: var(--primary);
+      text-decoration: underline;
+    }
+    .faculty-email:hover, .faculty-email:focus { color: var(--accent); }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 22px;
+    }
+    .sidebar-card h2 { font-size: 1.05rem; color: var(--primary); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+    .sidebar-link {
+      display: block; padding: 8px 0;
+      color: var(--primary); text-decoration: none;
+      font-size: 0.9rem; border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .sidebar-link:last-child { border-bottom: none; }
+    .sidebar-link:hover, .sidebar-link:focus { color: var(--accent); text-decoration: underline; }
+    .sidebar-link::before { content: '→ '; }
+
+    .contact-box { background: var(--primary); color: var(--white); border-radius: 10px; padding: 22px; }
+    .contact-box h2 { font-size: 1.05rem; color: var(--white); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.3); }
+    .contact-item { font-size: 0.88rem; margin-bottom: 10px; opacity: 0.9; }
+    .contact-item strong { display: block; opacity: 1; margin-bottom: 2px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .contact-box a { color: rgba(255,255,255,0.9); }
+    .contact-box a:hover, .contact-box a:focus { color: var(--white); text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--primary); color: rgba(255,255,255,0.75); margin-top: 40px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; }
+    .footer-inner h3 { color: var(--white); font-size: 0.9rem; margin-bottom: 12px; }
+    .footer-inner p, .footer-inner a { font-size: 0.85rem; color: rgba(255,255,255,0.72); text-decoration: none; display: block; margin-bottom: 6px; }
+    .footer-inner a:hover, .footer-inner a:focus { color: var(--white); text-decoration: underline; }
+    .footer-bottom { text-align: center; padding: 14px 24px; font-size: 0.82rem; border-top: 1px solid rgba(255,255,255,0.15); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 20px; }
+      .nav-inner { flex-wrap: wrap; }
+      .nav-inner a { padding: 10px 12px; font-size: 0.88rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-inner { flex-direction: column; align-items: flex-start; display: none; }
+      .nav-inner.open { display: flex; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- HEADER -->
+  <header role="banner">
+    <div class="header-top">
+      <span class="uf-brand">University of Florida &nbsp;|&nbsp; College of Liberal Arts and Sciences</span>
+    </div>
+    <div class="header-main">
+      <h1>Department of Psychology</h1>
+      <p>Advancing the science of mind and behavior at the University of Florida</p>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav role="navigation" aria-label="Department navigation">
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-inner" id="main-nav">
+      <a href="#" aria-current="page">Home</a>
+      <a href="#faculty">Faculty</a>
+      <a href="#news">News</a>
+      <a href="#research">Research</a>
+      <a href="#graduate">Graduate</a>
+      <a href="#contact-dept">Contact</a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main id="main-content">
+    <div class="page-wrap">
+
+      <!-- CONTENT -->
+      <div class="content-area">
+
+        <!-- Hero -->
+        <div class="hero-banner" role="region" aria-labelledby="welcome-heading">
+          <h2 id="welcome-heading">Welcome to Psychology at UF</h2>
+          <p>Our department is home to nationally recognized faculty conducting cutting-edge research across clinical, cognitive, developmental, behavioral neuroscience, and social psychology. We are committed to rigorous science and to preparing the next generation of psychologists.</p>
+          <a href="#graduate" class="hero-btn">Explore Graduate Programs</a>
+        </div>
+
+        <!-- News -->
+        <section class="news-section" id="news" aria-labelledby="news-heading">
+          <h2 id="news-heading">Latest News</h2>
+          <div class="news-grid">
+            <article class="news-card">
+              <p class="news-date">May 20, 2026</p>
+              <h3>Dr. Elena Martinez Receives NSF Grant for Cognitive Aging Research</h3>
+              <p>The National Science Foundation has awarded a $1.2 million grant to Dr. Martinez to investigate memory consolidation in older adults using neuroimaging techniques.</p>
+              <a href="#" class="read-more" aria-label="Read more about Dr. Martinez's NSF grant">Read More</a>
+            </article>
+            <article class="news-card">
+              <p class="news-date">May 10, 2026</p>
+              <h3>Psychology Department Ranks Among Top 20 in Clinical Training</h3>
+              <p>UF's clinical psychology doctoral program has been ranked among the top 20 in the nation by the American Psychological Association for the third consecutive year.</p>
+              <a href="#" class="read-more" aria-label="Read more about the department ranking">Read More</a>
+            </article>
+            <article class="news-card">
+              <p class="news-date">April 28, 2026</p>
+              <h3>Annual Psychology Research Symposium — Highlights and Awards</h3>
+              <p>Graduate students and faculty presented over 40 research projects at this year's symposium. Congratulations to all award recipients for their outstanding contributions.</p>
+              <a href="#" class="read-more" aria-label="Read more about the Research Symposium">Read More</a>
+            </article>
+          </div>
+        </section>
+
+        <!-- Faculty -->
+        <section class="faculty-section" id="faculty" aria-labelledby="faculty-heading">
+          <h2 id="faculty-heading">Faculty Directory</h2>
+          <div class="faculty-grid">
+            <article class="faculty-card">
+              <div class="faculty-avatar" role="img" aria-label="Photo placeholder for Dr. Elena Martinez">EM</div>
+              <h3>Dr. Elena Martinez</h3>
+              <p class="faculty-role">Professor &amp; Chair</p>
+              <p class="faculty-area">Cognitive Aging, Memory, Neuroimaging</p>
+              <a href="mailto:e.martinez@ufl.edu" class="faculty-email">e.martinez@ufl.edu</a>
+            </article>
+            <article class="faculty-card">
+              <div class="faculty-avatar" role="img" aria-label="Photo placeholder for Dr. James Okafor">JO</div>
+              <h3>Dr. James Okafor</h3>
+              <p class="faculty-role">Associate Professor</p>
+              <p class="faculty-area">Clinical Psychology, Anxiety Disorders</p>
+              <a href="mailto:j.okafor@ufl.edu" class="faculty-email">j.okafor@ufl.edu</a>
+            </article>
+            <article class="faculty-card">
+              <div class="faculty-avatar" role="img" aria-label="Photo placeholder for Dr. Priya Sharma">PS</div>
+              <h3>Dr. Priya Sharma</h3>
+              <p class="faculty-role">Assistant Professor</p>
+              <p class="faculty-area">Developmental Psychology, Child Cognition</p>
+              <a href="mailto:p.sharma@ufl.edu" class="faculty-email">p.sharma@ufl.edu</a>
+            </article>
+            <article class="faculty-card">
+              <div class="faculty-avatar" role="img" aria-label="Photo placeholder for Dr. Robert Chen">RC</div>
+              <h3>Dr. Robert Chen</h3>
+              <p class="faculty-role">Professor</p>
+              <p class="faculty-area">Behavioral Neuroscience, Learning</p>
+              <a href="mailto:r.chen@ufl.edu" class="faculty-email">r.chen@ufl.edu</a>
+            </article>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside aria-label="Department sidebar">
+        <div class="sidebar">
+
+          <div class="sidebar-card">
+            <h2>Quick Links</h2>
+            <a href="#" class="sidebar-link">Graduate Admissions</a>
+            <a href="#" class="sidebar-link">Undergraduate Program</a>
+            <a href="#" class="sidebar-link">Research Labs</a>
+            <a href="#" class="sidebar-link">Clinical Training</a>
+            <a href="#" class="sidebar-link">Course Offerings</a>
+            <a href="#" class="sidebar-link">Events Calendar</a>
+          </div>
+
+          <div class="sidebar-card">
+            <h2>Announcements</h2>
+            <p style="font-size:0.88rem;color:#555;margin-bottom:10px;">📅 <strong>May 30:</strong> Summer research applications due</p>
+            <p style="font-size:0.88rem;color:#555;margin-bottom:10px;">📅 <strong>Jun 5:</strong> Faculty meeting — Room 201</p>
+            <p style="font-size:0.88rem;color:#555;">📅 <strong>Jun 15:</strong> New graduate student orientation</p>
+          </div>
+
+          <div class="contact-box" id="contact-dept" role="region" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Contact Us</h2>
+            <div class="contact-item">
+              <strong>Address</strong>
+              945 Center Drive<br>Gainesville, FL 32611
+            </div>
+            <div class="contact-item">
+              <strong>Phone</strong>
+              (352) 392-0601
+            </div>
+            <div class="contact-item">
+              <strong>Email</strong>
+              <a href="mailto:psych@ufl.edu">psych@ufl.edu</a>
+            </div>
+            <div class="contact-item">
+              <strong>Office Hours</strong>
+              Mon–Fri, 8:00 AM – 5:00 PM
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <h3>Department of Psychology</h3>
+        <p>University of Florida<br>945 Center Drive, Gainesville, FL 32611</p>
+        <p style="margin-top:10px;">© 2026 University of Florida. All rights reserved.</p>
+      </div>
+      <div>
+        <h3>Programs</h3>
+        <a href="#">Clinical Psychology</a>
+        <a href="#">Cognitive Psychology</a>
+        <a href="#">Developmental</a>
+        <a href="#">Behavioral Neuroscience</a>
+      </div>
+      <div>
+        <h3>Resources</h3>
+        <a href="#">UF Homepage</a>
+        <a href="#">CLAS</a>
+        <a href="#">Graduate School</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>The University of Florida is an Equal Opportunity Institution &nbsp;|&nbsp; <a href="#" style="color:rgba(255,255,255,0.75);">Accessibility Statement</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      const nav = document.getElementById('main-nav');
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          target.setAttribute('tabindex', '-1');
+          target.focus();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
